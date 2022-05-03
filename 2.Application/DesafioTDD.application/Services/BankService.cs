@@ -14,11 +14,13 @@ namespace DesafioTDD.application.Services
     {
         private IBankRepository _bankRepository;
         private ICashMachineRepository _cashMachineRepository;
-        public BankService(IBankRepository bankRepository, ICashMachineRepository cashMachineRepository)
+        private ICustomerRepository _customerRepository;
+
+        public BankService(IBankRepository bankRepository, ICashMachineRepository cashMachineRepository, ICustomerRepository customerRepository)
         {
             _bankRepository = bankRepository;
             _cashMachineRepository = cashMachineRepository;
-            
+            _customerRepository = customerRepository;
         }
 
         public void CreateBank(BankCreateDto bankDto)
@@ -35,6 +37,10 @@ namespace DesafioTDD.application.Services
             var cashMachines = _cashMachineRepository.GetCashMachines().Where(e => e.Bank.Id == bank.Id);
             if (cashMachines.Any())
                 throw new Exception ("Não é possível deletar um banco com caixas eletrônicos cadastrados");
+
+            var customers = _customerRepository.GetCustomers().Where(e => e.Bank.Id == bank.Id);
+            if (customers.Any())
+                throw new Exception ("Não é possível deletar um banco com clientes cadastrados");
 
             _bankRepository.DeleteBank(bank);
         }
