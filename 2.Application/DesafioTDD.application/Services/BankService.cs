@@ -25,6 +25,9 @@ namespace DesafioTDD.application.Services
 
         public void CreateBank(BankCreateDto bankDto)
         {
+            if (!VerifyPrefixes(bankDto.CardNumberPrefix))
+                throw new Exception("Prefixo(s) já existente(s)");
+
             _bankRepository.CreateBank(bankDto.ToDomain());
         }
 
@@ -69,10 +72,31 @@ namespace DesafioTDD.application.Services
             if (bank is null)
                 throw new ArgumentException("Banco não encontrado");
 
+            if (!VerifyPrefixes(bankDto.CardNumberPrefix))
+                throw new Exception("Prefixo(s) já existente(s)");
+
             bank.Name = bankDto.Name ?? bank.Name;
             bank.CardNumberPrefix = bankDto.CardNumberPrefix ?? bank.CardNumberPrefix;
 
             _bankRepository.UpdateBank(bank);
+        }
+
+        //-------------------- Métodos internos --------------------\\
+
+        private bool VerifyPrefixes(string cardNumberPrefix)
+        {
+            if (string.IsNullOrEmpty(cardNumberPrefix))
+                return true;
+
+            var prefixes = cardNumberPrefix.Split("-");
+            foreach (var prefix in prefixes)
+            {
+                var bank = _bankRepository.GetBankByPrefix(prefix);
+                if (!(bank is null))
+                    return false;
+            }
+
+            return true;
         }
     }
 }

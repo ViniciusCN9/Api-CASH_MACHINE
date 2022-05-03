@@ -64,5 +64,20 @@ namespace DesafioTDD.infra.Database.Repositories
             _context.Banks.Update(bank);
             _context.SaveChanges();
         }
+
+        public Bank GetBankByPrefix(string prefix)
+        {
+            Bank bank;
+            try
+            {
+                bank = _context.Banks.FirstOrDefault(e => e.CardNumberPrefix.Contains(prefix));
+            }
+            catch
+            {
+                bank = null;
+            }
+
+            return bank;
+        }
     }
 }

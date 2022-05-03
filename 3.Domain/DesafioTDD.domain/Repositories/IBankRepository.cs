@@ -10,5 +10,6 @@ namespace DesafioTDD.domain.Repositories
         void CreateBank(Bank bank);
         void UpdateBank(Bank bank);
         void DeleteBank(Bank bank);
+        Bank GetBankByPrefix(string cardNumberPrefix);
     }
 }
