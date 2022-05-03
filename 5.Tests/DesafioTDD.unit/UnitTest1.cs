@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace DesafioTDD.tests
+namespace DesafioTDD.unit
 {
     public class UnitTest1
     {
