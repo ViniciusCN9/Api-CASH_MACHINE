@@ -85,11 +85,14 @@ namespace DesafioTDD.application.Services
             if (customer is null)
                 throw new ArgumentException("Cliente não encontrado");
 
-            if(cashMachine.Bank.Id != customer.Bank.Id)
+            if (cashMachine.Bank.Id != customer.Bank.Id)
                 throw new Exception("Caixa eletrônico incompatível com banco do cliente");
 
+            if (customer.Balance < totalValue)
+                throw new Exception("Saldo insuficiente");
+
             if (cashMachine.TotalValue < totalValue)
-                throw new Exception("Valor indisponível");
+                throw new Exception("Valor indisponível no caixa eletrônico");
 
             var operationWithdrawDto = _operationHelper.ConvertToCells(cashMachine, totalValue);
             
