@@ -29,7 +29,7 @@ namespace DesafioTDD.application.Validations
 
         private bool IsNumber(string value)
         {
-            if (Regex.IsMatch(value, @"[^\d]"))
+            if (Regex.IsMatch(value, @"^[\d]"))
                 return true;
             return false;
         }
