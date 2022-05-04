@@ -14,30 +14,30 @@ namespace DesafioTDD.application.Helpers
 
             string cardNumber = "";
 
-            var prefixes = prefix.Split("-");
-            var FirstPart = prefixes[random.Next(0, prefix.Count())];
-            cardNumber.Concat(FirstPart);
+            var prefixes = prefix.Split('-');
+            var FirstPart = prefixes[random.Next(0, prefixes.Length)];
+            cardNumber = cardNumber.Insert(0, FirstPart);
 
             var SecondPart = GenerateFourRandom();
-            cardNumber.Concat(SecondPart);
+            cardNumber = cardNumber.Insert(4, SecondPart);
 
             var thirdPart = GenerateFourRandom();
-            cardNumber.Concat(thirdPart);
+            cardNumber = cardNumber.Insert(8, thirdPart);
 
             var LastPart = GenerateFourRandom();
-            cardNumber.Concat(LastPart);
+            cardNumber = cardNumber.Insert(12, LastPart);
 
             return cardNumber;
         }
 
-        private string GenerateFourRandom()
+        public string GenerateFourRandom()
         {
             Random random = new Random();
 
             var randomFourDigits = random.Next(0, 9).ToString();
-            randomFourDigits.Concat(random.Next(0, 9).ToString());
-            randomFourDigits.Concat(random.Next(0, 9).ToString());
-            randomFourDigits.Concat(random.Next(0, 9).ToString());
+            randomFourDigits = randomFourDigits.Insert(1, random.Next(0, 9).ToString());
+            randomFourDigits = randomFourDigits.Insert(2, random.Next(0, 9).ToString());
+            randomFourDigits = randomFourDigits.Insert(3, random.Next(0, 9).ToString());
 
             return randomFourDigits;
         }
