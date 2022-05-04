@@ -98,7 +98,7 @@ namespace DesafioTDD.application.Helpers
             };
 
             var value = totalValue;
-            while (value > 200m && cashMachine.AmountTwoHundred > 0)
+            while (value >= 200m && cashMachine.AmountTwoHundred > 0)
             {
                 operationDto.AmountTwoHundred ++;
                 cashMachine.AmountTwoHundred --;
@@ -106,7 +106,7 @@ namespace DesafioTDD.application.Helpers
                 value -= 200m;
             }
 
-            while (value > 100m && cashMachine.AmountOneHundred > 0)
+            while (value >= 100m && cashMachine.AmountOneHundred > 0)
             {
                 operationDto.AmountOneHundred ++;
                 cashMachine.AmountOneHundred --;
@@ -114,7 +114,7 @@ namespace DesafioTDD.application.Helpers
                 value -= 100m;
             }
 
-            while (value > 50m && cashMachine.AmountFifty > 0)
+            while (value >= 50m && cashMachine.AmountFifty > 0)
             {
                 operationDto.AmountFifty ++;
                 cashMachine.AmountFifty --;
@@ -122,7 +122,7 @@ namespace DesafioTDD.application.Helpers
                 value -= 50m;
             }
 
-            while (value > 20m && cashMachine.AmountTwenty > 0)
+            while (value >= 20m && cashMachine.AmountTwenty > 0)
             {
                 operationDto.AmountTwenty ++;
                 cashMachine.AmountTwenty --;
@@ -130,7 +130,7 @@ namespace DesafioTDD.application.Helpers
                 value -= 20m;
             }
 
-            while (value > 10m && cashMachine.AmountTen > 0)
+            while (value >= 10m && cashMachine.AmountTen > 0)
             {
                 operationDto.AmountTen ++;
                 cashMachine.AmountTen --;
@@ -138,7 +138,7 @@ namespace DesafioTDD.application.Helpers
                 value -= 10m;
             }
 
-            while (value > 5m && cashMachine.AmountFive > 0)
+            while (value >= 5m && cashMachine.AmountFive > 0)
             {
                 operationDto.AmountFive ++;
                 cashMachine.AmountFive --;
@@ -146,7 +146,7 @@ namespace DesafioTDD.application.Helpers
                 value -= 5m;
             }
 
-            while (value > 2m && cashMachine.AmountTwo > 0)
+            while (value >= 2m && cashMachine.AmountTwo > 0)
             {
                 operationDto.AmountTwo ++;
                 cashMachine.AmountTwo --;
@@ -154,7 +154,7 @@ namespace DesafioTDD.application.Helpers
                 value -= 2m;
             }
 
-            while (value > 1m && cashMachine.AmountOne > 0)
+            while (value >= 1m && cashMachine.AmountOne > 0)
             {
                 operationDto.AmountOne ++;
                 cashMachine.AmountOne --;
