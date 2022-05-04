@@ -40,6 +40,9 @@ namespace DesafioTDD.application.Services
             if (cashMachine is null)
                 throw new ArgumentException("Caixa eletrônico não encontrado");
 
+            if (cashMachine.TotalValue > 0m)
+                throw new Exception("Não é possível deletar um caixa eletrônico com dinheiro");
+
             _cashMachineRepository.DeleteCashMachine(cashMachine);
         }
 
