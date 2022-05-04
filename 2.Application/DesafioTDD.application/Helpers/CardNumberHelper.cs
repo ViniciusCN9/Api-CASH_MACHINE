@@ -6,9 +6,9 @@ using DesafioTDD.domain.Entities;
 
 namespace DesafioTDD.application.Helpers
 {
-    public static class CardNumberHelper
+    public class CardNumberHelper
     {
-        public static string GenerateCardNumber(string prefix)
+        public string GenerateCardNumber(string prefix)
         {
             Random random = new Random();
 
@@ -30,7 +30,7 @@ namespace DesafioTDD.application.Helpers
             return cardNumber;
         }
 
-        private static string GenerateFourRandom()
+        private string GenerateFourRandom()
         {
             Random random = new Random();
 

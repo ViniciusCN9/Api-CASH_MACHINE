@@ -15,11 +15,13 @@ namespace DesafioTDD.application.Services
     {
         private ICustomerRepository _customerRepository;
         private IBankRepository _bankRepository;
+        private CardNumberHelper _cardNumberHelper;
 
-        public CustomerService(ICustomerRepository customerRepository, IBankRepository bankRepository)
+        public CustomerService(ICustomerRepository customerRepository, IBankRepository bankRepository, CardNumberHelper cardNumberHelper)
         {
             _customerRepository = customerRepository;
             _bankRepository = bankRepository;
+            _cardNumberHelper = cardNumberHelper;
         }
 
         public void CustomerRegister(CustomerRegisterDto customerDto)
@@ -30,7 +32,7 @@ namespace DesafioTDD.application.Services
 
             var customer = customerDto.ToDomain();
             customer.Bank = bank;
-            customer.CardNumber = CardNumberHelper.GenerateCardNumber(bank.CardNumberPrefix);
+            customer.CardNumber = _cardNumberHelper.GenerateCardNumber(bank.CardNumberPrefix);
 
             _customerRepository.CreateCustomer(customer);
         }

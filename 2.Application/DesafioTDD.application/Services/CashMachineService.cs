@@ -15,11 +15,13 @@ namespace DesafioTDD.application.Services
     {
         private ICashMachineRepository _cashMachineRepository;
         private IBankRepository _bankRepository;
+        private OperationHelper _operationHelper;
 
-        public CashMachineService(ICashMachineRepository cashMachineRepository, IBankRepository bankRepository)
+        public CashMachineService(ICashMachineRepository cashMachineRepository, IBankRepository bankRepository, OperationHelper operationHelper)
         {
             _cashMachineRepository = cashMachineRepository;
             _bankRepository = bankRepository;
+            _operationHelper = operationHelper;
         }
 
         public void CreateCashMachine(CashMachineCreateDto operationDto)
@@ -70,7 +72,7 @@ namespace DesafioTDD.application.Services
             if (cashMachine is null)
                 throw new ArgumentException("Caixa eletrônico não encontrado");
             
-            OperationHelper.InsertCash(cashMachine, operationDto);
+            _operationHelper.InsertCash(cashMachine, operationDto);
 
             _cashMachineRepository.UpdateCashMachine(cashMachine);
         }
@@ -81,10 +83,10 @@ namespace DesafioTDD.application.Services
             if (cashMachine is null)
                 throw new ArgumentException("Caixa eletrônico não encontrado");
 
-            if (!OperationHelper.CheckQuantity(cashMachine, operationDto))
+            if (!_operationHelper.CheckQuantity(cashMachine, operationDto))
                 throw new Exception("Células disponíveis insuficientes");
 
-            OperationHelper.RetrieveCash(cashMachine, operationDto);
+            _operationHelper.RetrieveCash(cashMachine, operationDto);
  
             _cashMachineRepository.UpdateCashMachine(cashMachine);
         }

@@ -7,9 +7,9 @@ using DesafioTDD.domain.Entities;
 
 namespace DesafioTDD.application.Helpers
 {
-    public static class OperationHelper
+    public class OperationHelper
     {
-        public static void InsertCash(CashMachine cashMachine, OperationCellsDto operationDto)
+        public void InsertCash(CashMachine cashMachine, OperationCellsDto operationDto)
         {
             cashMachine.AmountOne += operationDto.AmountOne;
             cashMachine.TotalValue += (1m * operationDto.AmountOne);
@@ -38,7 +38,7 @@ namespace DesafioTDD.application.Helpers
             return;
         }
 
-        public static void RetrieveCash(CashMachine cashMachine, OperationCellsDto operationDto)
+        public void RetrieveCash(CashMachine cashMachine, OperationCellsDto operationDto)
         {
             cashMachine.AmountOne -= operationDto.AmountOne;
             cashMachine.TotalValue -= (1m * operationDto.AmountOne);
@@ -67,7 +67,7 @@ namespace DesafioTDD.application.Helpers
             return;
         }
 
-        public static decimal SumValue(OperationCellsDto operationDto)
+        public decimal SumValue(OperationCellsDto operationDto)
         {
             decimal total = 0;
 
@@ -83,7 +83,7 @@ namespace DesafioTDD.application.Helpers
             return total;
         }
 
-        public static OperationWithdrawDto ConvertToCells(CashMachine cashMachine, decimal totalValue)
+        public OperationWithdrawDto ConvertToCells(CashMachine cashMachine, decimal totalValue)
         {
             var operationDto = new OperationCellsDto()
             {
@@ -171,7 +171,7 @@ namespace DesafioTDD.application.Helpers
             return operationWithdrawDto;
         }
 
-        public static bool CheckQuantity(CashMachine cashMachine, OperationCellsDto operationDto)
+        public bool CheckQuantity(CashMachine cashMachine, OperationCellsDto operationDto)
         {
             if
             (

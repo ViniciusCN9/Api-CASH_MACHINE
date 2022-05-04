@@ -15,12 +15,14 @@ namespace DesafioTDD.application.Services
         private IOperationRepository _operationRepository;
         private ICustomerRepository _customerRepository;
         private ICashMachineRepository _cashMachineRepository;
+        private OperationHelper _operationHelper;
 
-        public OperationService(IOperationRepository operationRepository, ICustomerRepository customerRepository, ICashMachineRepository cashMachineRepository)
+        public OperationService(IOperationRepository operationRepository, ICustomerRepository customerRepository, ICashMachineRepository cashMachineRepository, OperationHelper operationHelper)
         {
             _operationRepository = operationRepository;
             _customerRepository = customerRepository;
             _cashMachineRepository = cashMachineRepository;
+            _operationHelper = operationHelper;
         }
 
         public Operation GetOperation(int id)
@@ -54,10 +56,10 @@ namespace DesafioTDD.application.Services
             if(cashMachine.Bank.Id != customer.Bank.Id)
                 throw new Exception("Caixa eletrônico incompatível com banco do cliente");
 
-            OperationHelper.InsertCash(cashMachine, operationDto);
+            _operationHelper.InsertCash(cashMachine, operationDto);
             _cashMachineRepository.UpdateCashMachine(cashMachine);
 
-            var totalValue = OperationHelper.SumValue(operationDto);
+            var totalValue = _operationHelper.SumValue(operationDto);
             customer.Balance += totalValue;
             _customerRepository.UpdateCustomer(customer);
 
@@ -89,7 +91,7 @@ namespace DesafioTDD.application.Services
             if (cashMachine.TotalValue < totalValue)
                 throw new Exception("Valor indisponível");
 
-            var operationWithdrawDto = OperationHelper.ConvertToCells(cashMachine, totalValue);
+            var operationWithdrawDto = _operationHelper.ConvertToCells(cashMachine, totalValue);
             
             _cashMachineRepository.UpdateCashMachine(cashMachine);
 

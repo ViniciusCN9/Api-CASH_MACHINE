@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using DesafioTDD.application.Helpers;
 using DesafioTDD.application.Interfaces;
 using DesafioTDD.application.Services;
 using DesafioTDD.domain.Repositories;
@@ -106,6 +107,9 @@ namespace DesafioTDD.api
             services.AddScoped<IOperationService, OperationService>();
 
             services.AddScoped<ITokenService, TokenService>();
+
+            services.AddScoped<CardNumberHelper, CardNumberHelper>();
+            services.AddScoped<OperationHelper, OperationHelper>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
