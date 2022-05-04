@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Interfaces;
 using DesafioTDD.application.Mappers;
@@ -81,9 +80,9 @@ namespace DesafioTDD.application.Services
             _bankRepository.UpdateBank(bank);
         }
 
-        //-------------------- Métodos internos --------------------\\
+        //-------------------- Métodos auxiliares --------------------
 
-        private bool VerifyPrefixes(string cardNumberPrefix)
+        public bool VerifyPrefixes(string cardNumberPrefix)
         {
             if (string.IsNullOrEmpty(cardNumberPrefix))
                 return true;
