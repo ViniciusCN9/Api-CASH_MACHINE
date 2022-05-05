@@ -30,6 +30,12 @@ Através da flag *--filter* é possível categorizar os testes em:
 - *Class*
 - *Method*
 
+Foram criados dois testes específicos para as situações presentes na proposta do desafio, o primeiro pra saque de  R$30,00 e o segundo para saque de R$80,00.
+Ambas quando o banco possuí: uma nota de 100, uma de 50, uma de 20 e uma de 10.
+
+- dotnet test --filter Proposed=First
+- dotnet test --filter Proposed=Second
+
 ### Dados para verificação
 
 Foram inseridos dados para facilitar a verificação do funcionamento:
@@ -77,7 +83,7 @@ CAIXA ELETRÔNICO:
 CLIENTE:
 
 - Cada cliente possuí apenas um banco e um cartão;
-- O número do cartão é gerado ao criar uma conta e tem como prefixo; 
+- O número do cartão é gerado ao criar uma conta e tem como quatro primeiros dígitos um dos prefixos do banco; 
 - Não deve-se deletar cliente com saldo em conta.
 
 OPERAÇÕES:
@@ -89,7 +95,7 @@ OPERAÇÕES:
 EX. Cliente efetua um saque de R$ 100 e o caixa não tem cédulas de cem, ele irá retornar com as notas menores disponíveis;
 
 - Caso o valor do saque contenha casas decimais, o saque efetivo sera de um valor inteiro mais próximo disponível
-EX. valor do saque: R$ 999.99, o saque efetivo será de R$ 999. 
+EX. valor do saque: R$999,99, o saque efetivo será de R$999,00 
 
 ## Considerações
 
