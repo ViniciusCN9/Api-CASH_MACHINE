@@ -66,6 +66,8 @@ namespace DesafioTDD.api.Controllers.Customer
         [Route("Withdraw/{cashMachineId:int}/{totalValue:decimal}")]
         public IActionResult PostWithdraw([FromRoute] int cashMachineId, decimal totalValue)
         {
+            if (totalValue <= 0)
+                return BadRequest();
             try
             {
                 var userId = User.Claims.First().Value;
