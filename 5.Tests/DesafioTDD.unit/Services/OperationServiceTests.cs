@@ -122,5 +122,47 @@ namespace DesafioTDD.unit.Services
 
             result.Should().BeEquivalentTo(expected);
         }
+
+        [Fact(DisplayName = "Deve retornar OperationWithdrawDto")]
+        [Trait("Proposed", "First")]
+        [Trait("Method", "OperationWithdraw")]
+        [Trait("Class", "OperationService")]
+        [Trait("Namespace", "Services")]
+        public void Deve_Retornar_OperationWithdrawDto_Primeiro_Proposto()
+        {
+            var expected = new OperationWithdrawDto()
+            {
+                CellsDto = new CellsDto(){ AmountTen = 1, AmountTwenty = 1 },
+                WithdrawValue = 30m
+            };
+            _mockCashMachineRepository.Setup(e => e.GetCashMachine(It.IsAny<int>())).Returns(new CashMachine(){ AmountTen = 1, AmountTwenty = 1, AmountFifty = 1, AmountOneHundred = 1, TotalValue = 180m, Bank = new Bank(){ Id = 1 } });
+            _mockCustomerRepository.Setup(e => e.GetCustomer(It.IsAny<int>())).Returns(new Customer(){ Balance = 180m, Bank = new Bank(){ Id = 1 } });
+            _operationService = new OperationService(_mockOperationRepository.Object, _mockCustomerRepository.Object, _mockCashMachineRepository.Object, _mockOperationHelper.Object);
+
+            var result = _operationService.OperationWithdraw(30m, It.IsAny<int>(), It.IsAny<int>());
+
+            result.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact(DisplayName = "Deve retornar OperationWithdrawDto")]
+        [Trait("Proposed", "Second")]
+        [Trait("Method", "OperationWithdraw")]
+        [Trait("Class", "OperationService")]
+        [Trait("Namespace", "Services")]
+        public void Deve_Retornar_OperationWithdrawDto_Segundo_Proposto()
+        {
+            var expected = new OperationWithdrawDto()
+            {
+                CellsDto = new CellsDto(){ AmountTen = 1, AmountTwenty = 1, AmountFifty = 1 },
+                WithdrawValue = 80m
+            };
+            _mockCashMachineRepository.Setup(e => e.GetCashMachine(It.IsAny<int>())).Returns(new CashMachine(){ AmountTen = 1, AmountTwenty = 1, AmountFifty = 1, AmountOneHundred = 1, TotalValue = 180m, Bank = new Bank(){ Id = 1 } });
+            _mockCustomerRepository.Setup(e => e.GetCustomer(It.IsAny<int>())).Returns(new Customer(){ Balance = 180m, Bank = new Bank(){ Id = 1 } });
+            _operationService = new OperationService(_mockOperationRepository.Object, _mockCustomerRepository.Object, _mockCashMachineRepository.Object, _mockOperationHelper.Object);
+
+            var result = _operationService.OperationWithdraw(80m, It.IsAny<int>(), It.IsAny<int>());
+
+            result.Should().BeEquivalentTo(expected);
+        }
     }
 }
