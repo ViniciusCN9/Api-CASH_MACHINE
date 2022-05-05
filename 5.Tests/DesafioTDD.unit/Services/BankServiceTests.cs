@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.Services;
 using DesafioTDD.domain.Entities;
 using DesafioTDD.domain.Repositories;

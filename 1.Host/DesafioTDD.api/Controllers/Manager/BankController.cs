@@ -1,14 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioTDD.api.Controllers.Manager
 {
     [ApiController]
+    [Authorize(Roles = "MANAGER")]
     [Route("v1/Manager/[controller]")]
     public class BankController : ControllerBase
     {
@@ -22,16 +22,38 @@ namespace DesafioTDD.api.Controllers.Manager
         [HttpGet]
         public IActionResult GetBanks()
         {
-            var banks = _bankService.GetBanks();
-            return Ok(banks);
+            try
+            {
+                var banks = _bankService.GetBanks();
+                return Ok(banks);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public IActionResult GetBank([FromRoute] int id)
         {
-            var bank = _bankService.GetBank(id);
-            return Ok(bank);
+            try
+            {   
+                var bank = _bankService.GetBank(id);
+                return Ok(bank);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPost]
@@ -40,8 +62,19 @@ namespace DesafioTDD.api.Controllers.Manager
             if (!ModelState.IsValid)
                 return BadRequest();
             
-            _bankService.CreateBank(bankDto);
-            return Ok();
+            try
+            {
+                _bankService.CreateBank(bankDto);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPatch]
@@ -51,7 +84,18 @@ namespace DesafioTDD.api.Controllers.Manager
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _bankService.UpdateBank(bankDto, id);
+            try
+            {
+                _bankService.UpdateBank(bankDto, id);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
             return Ok();
         }
 
@@ -59,8 +103,19 @@ namespace DesafioTDD.api.Controllers.Manager
         [Route("{id:int}")]
         public IActionResult DeleteBank([FromRoute] int id)
         {
-            _bankService.DeleteBank(id);
-            return Ok();
+            try
+            {
+                _bankService.DeleteBank(id);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
     }
 }

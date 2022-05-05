@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.domain.Entities;
 using DesafioTDD.domain.Repositories;
 using DesafioTDD.infra.Database.Context;
@@ -26,7 +24,7 @@ namespace DesafioTDD.infra.Database.Repositories
 
         public void DeleteCustomer(Customer customer)
         {
-            _context.Customers.Add(customer);
+            _context.Customers.Remove(customer);
             _context.SaveChanges();
         }
 
@@ -77,7 +75,7 @@ namespace DesafioTDD.infra.Database.Repositories
 
         public void UpdateCustomer(Customer customer)
         {
-            _context.Customers.Add(customer);
+            _context.Customers.Update(customer);
             _context.SaveChanges();
         }
     }

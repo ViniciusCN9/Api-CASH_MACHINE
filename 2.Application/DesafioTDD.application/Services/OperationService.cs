@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Helpers;
 using DesafioTDD.application.Interfaces;
@@ -25,25 +24,28 @@ namespace DesafioTDD.application.Services
             _operationHelper = operationHelper;
         }
 
-        public Operation GetOperation(int id)
-        {
-            var operation = _operationRepository.GetOperation(id);
-            if (operation is null)
-                throw new ArgumentException("Operação não encontrada");
-
-            return operation;
-        }
-
-        public List<Operation> GetOperations(int customerId)
+        public List<object> GetOperations(int customerId)
         {
             var operations = _operationRepository.GetOperations(customerId);
             if (!operations.Any())
-                throw new ArgumentException("Nenhume operação efetuada");
+                throw new ArgumentException("Nenhuma operação efetuada");
 
-            return operations;
+            var statementList = new List<object>();
+            foreach (var operation in operations)
+            {
+                statementList.Add(new
+                { 
+                    date = operation.Date.ToString("dd/MM/yyyy H:mm:ss"),
+                    name = operation.Customer.Name,
+                    bank = operation.Customer.Bank.Name,
+                    value = operation.TotalValue.ToString("c")
+                });
+            }
+
+            return statementList;
         }
 
-        public void OperationDeposit(OperationCellsDto operationDto, int cashMachineId, int userId)
+        public void OperationDeposit(CellsDto cellsDto, int cashMachineId, int userId)
         {
             var cashMachine = _cashMachineRepository.GetCashMachine(cashMachineId);
             if (cashMachine is null)
@@ -56,10 +58,10 @@ namespace DesafioTDD.application.Services
             if(cashMachine.Bank.Id != customer.Bank.Id)
                 throw new Exception("Caixa eletrônico incompatível com banco do cliente");
 
-            _operationHelper.InsertCash(cashMachine, operationDto);
+            _operationHelper.InsertCash(cashMachine, cellsDto);
             _cashMachineRepository.UpdateCashMachine(cashMachine);
 
-            var totalValue = _operationHelper.SumValue(operationDto);
+            var totalValue = _operationHelper.SumValue(cellsDto);
             customer.Balance += totalValue;
             _customerRepository.UpdateCustomer(customer);
 

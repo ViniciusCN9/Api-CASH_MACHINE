@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.domain.Entities;
 using DesafioTDD.domain.Repositories;
 using DesafioTDD.infra.Database.Context;
@@ -26,7 +24,7 @@ namespace DesafioTDD.infra.Database.Repositories
 
         public void DeleteCashMachine(CashMachine cashMachine)
         {
-            _context.CashMachines.Add(cashMachine);
+            _context.CashMachines.Remove(cashMachine);
             _context.SaveChanges();
         }
 
@@ -62,7 +60,7 @@ namespace DesafioTDD.infra.Database.Repositories
 
         public void UpdateCashMachine(CashMachine cashMachine)
         {
-            _context.CashMachines.Add(cashMachine);
+            _context.CashMachines.Update(cashMachine);
             _context.SaveChanges();
         }
     }

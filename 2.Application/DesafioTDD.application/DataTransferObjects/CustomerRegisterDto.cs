@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DesafioTDD.application.DataTransferObjects
 {
@@ -13,7 +9,7 @@ namespace DesafioTDD.application.DataTransferObjects
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Insira a senha do cliente")]
-        [StringLength(6, MinimumLength = 6, ErrorMessage = "Senha deve ter 6 dígitos")]
+        [StringLength(20, ErrorMessage = "Senha deve ter no mínimo {2} e no máximo {1} caracter(es)", MinimumLength = 4)]
         public string Password { get; set; }
 
         [Required]

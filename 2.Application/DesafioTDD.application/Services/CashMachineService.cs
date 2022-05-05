@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Helpers;
 using DesafioTDD.application.Interfaces;
@@ -61,12 +60,12 @@ namespace DesafioTDD.application.Services
         {
             var cashMachines = _cashMachineRepository.GetCashMachines();
             if (!cashMachines.Any())
-                throw new ArgumentException("Caixa eletrônico não encontrado");
+                throw new ArgumentException("Nenhum caixa eletrônico cadastrado");
 
             return cashMachines;
         }
 
-        public void InsertCash(OperationCellsDto operationDto, int id)
+        public void InsertCash(CellsDto operationDto, int id)
         {
             var cashMachine = _cashMachineRepository.GetCashMachine(id);
             if (cashMachine is null)
@@ -77,7 +76,7 @@ namespace DesafioTDD.application.Services
             _cashMachineRepository.UpdateCashMachine(cashMachine);
         }
 
-        public void RetrieveCash(OperationCellsDto operationDto, int id)
+        public void RetrieveCash(CellsDto operationDto, int id)
         {
             var cashMachine = _cashMachineRepository.GetCashMachine(id);
             if (cashMachine is null)

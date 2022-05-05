@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.domain.Entities;
 using DesafioTDD.domain.Repositories;
 using DesafioTDD.infra.Database.Context;
@@ -29,7 +27,7 @@ namespace DesafioTDD.infra.Database.Repositories
             Operation operation;
             try
             {
-                operation = _context.Operations.Include(e => e.Customer).Include(e => e.CashMachine).FirstOrDefault(e => e.Id == id);
+                operation = _context.Operations.Include(e => e.Customer).Include(e => e.Customer.Bank).Include(e => e.CashMachine).FirstOrDefault(e => e.Id == id);
             }
             catch
             {
@@ -44,7 +42,7 @@ namespace DesafioTDD.infra.Database.Repositories
             List<Operation> operations;
             try
             {
-                operations = _context.Operations.Include(e => e.Customer).Include(e => e.CashMachine).Where(e => e.Customer.Id == customerId).ToList();
+                operations = _context.Operations.Include(e => e.Customer).Include(e => e.Customer.Bank).Include(e => e.CashMachine).Where(e => e.Customer.Id == customerId).ToList();
             }
             catch
             {

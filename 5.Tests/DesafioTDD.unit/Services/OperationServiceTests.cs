@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Helpers;
 using DesafioTDD.application.Services;
@@ -31,7 +28,7 @@ namespace DesafioTDD.unit.Services
             _mockCustomerRepository.Setup(e => e.GetCustomer(It.IsAny<int>())).Returns(new Customer(){ Bank = new Bank(){ Id = 2 } });
             _operationService = new OperationService(_mockOperationRepository.Object, _mockCustomerRepository.Object, _mockCashMachineRepository.Object, _mockOperationHelper.Object);
 
-            var exception = Assert.Throws<Exception>(() => _operationService.OperationDeposit(new OperationCellsDto(), It.IsAny<int>(), It.IsAny<int>()));
+            var exception = Assert.Throws<Exception>(() => _operationService.OperationDeposit(new CellsDto(), It.IsAny<int>(), It.IsAny<int>()));
 
             Assert.Equal("Caixa eletrônico incompatível com banco do cliente", exception.Message);
         }
@@ -48,7 +45,7 @@ namespace DesafioTDD.unit.Services
                 AmountOne = 0, AmountTwo = 0, AmountFive = 0, AmountTen = 0, AmountTwenty = 0, AmountFifty = 0, AmountOneHundred = 0, AmountTwoHundred = 0,
                 TotalValue = 0m
             };
-            var operationDto = new OperationCellsDto()
+            var cellsDto = new CellsDto()
             { 
                 AmountOne = 0, AmountTwo = 0, AmountFive = 0, AmountTen = 0, AmountTwenty = 0, AmountFifty = 0, AmountOneHundred = 0, AmountTwoHundred = 0
             };
@@ -56,7 +53,7 @@ namespace DesafioTDD.unit.Services
             _mockCustomerRepository.Setup(e => e.GetCustomer(It.IsAny<int>())).Returns(new Customer(){ Bank = new Bank(){ Id = 1 } });
             _operationService = new OperationService(_mockOperationRepository.Object, _mockCustomerRepository.Object, _mockCashMachineRepository.Object, _mockOperationHelper.Object);
 
-            _operationService.OperationDeposit(operationDto, It.IsAny<int>(), It.IsAny<int>());
+            _operationService.OperationDeposit(cellsDto, It.IsAny<int>(), It.IsAny<int>());
 
             _mockOperationRepository.Verify(e => e.CreateOperation(It.IsAny<Operation>()), Times.Once);
         }
@@ -71,7 +68,7 @@ namespace DesafioTDD.unit.Services
             _mockCustomerRepository.Setup(e => e.GetCustomer(It.IsAny<int>())).Returns(new Customer(){ Bank = new Bank(){ Id = 2 } });
             _operationService = new OperationService(_mockOperationRepository.Object, _mockCustomerRepository.Object, _mockCashMachineRepository.Object, _mockOperationHelper.Object);
 
-            var exception = Assert.Throws<Exception>(() => _operationService.OperationDeposit(new OperationCellsDto(), It.IsAny<int>(), It.IsAny<int>()));
+            var exception = Assert.Throws<Exception>(() => _operationService.OperationDeposit(new CellsDto(), It.IsAny<int>(), It.IsAny<int>()));
 
             Assert.Equal("Caixa eletrônico incompatível com banco do cliente", exception.Message);
         }
@@ -114,7 +111,7 @@ namespace DesafioTDD.unit.Services
         {
             var expected = new OperationWithdrawDto()
             {
-                OperationDto = new OperationCellsDto(){ AmountOneHundred = 1 },
+                CellsDto = new CellsDto(){ AmountOneHundred = 1 },
                 WithdrawValue = 100m
             };
             _mockCashMachineRepository.Setup(e => e.GetCashMachine(It.IsAny<int>())).Returns(new CashMachine(){ AmountOneHundred = 1, TotalValue = 100m, Bank = new Bank(){ Id = 1 } });

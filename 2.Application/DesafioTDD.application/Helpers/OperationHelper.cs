@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.domain.Entities;
 
@@ -9,83 +5,83 @@ namespace DesafioTDD.application.Helpers
 {
     public class OperationHelper
     {
-        public void InsertCash(CashMachine cashMachine, OperationCellsDto operationDto)
+        public void InsertCash(CashMachine cashMachine, CellsDto cellsDto)
         {
-            cashMachine.AmountOne += operationDto.AmountOne;
-            cashMachine.TotalValue += (1m * operationDto.AmountOne);
+            cashMachine.AmountOne += cellsDto.AmountOne;
+            cashMachine.TotalValue += (1m * cellsDto.AmountOne);
 
-            cashMachine.AmountTwo += operationDto.AmountTwo;
-            cashMachine.TotalValue += (2m * operationDto.AmountTwo);
+            cashMachine.AmountTwo += cellsDto.AmountTwo;
+            cashMachine.TotalValue += (2m * cellsDto.AmountTwo);
 
-            cashMachine.AmountFive += operationDto.AmountFive;
-            cashMachine.TotalValue += (5m * operationDto.AmountFive);
+            cashMachine.AmountFive += cellsDto.AmountFive;
+            cashMachine.TotalValue += (5m * cellsDto.AmountFive);
             
-            cashMachine.AmountTen += operationDto.AmountTen;
-            cashMachine.TotalValue += (10m * operationDto.AmountTen);
+            cashMachine.AmountTen += cellsDto.AmountTen;
+            cashMachine.TotalValue += (10m * cellsDto.AmountTen);
 
-            cashMachine.AmountTwenty += operationDto.AmountTwenty;
-            cashMachine.TotalValue += (20m * operationDto.AmountTwenty);
+            cashMachine.AmountTwenty += cellsDto.AmountTwenty;
+            cashMachine.TotalValue += (20m * cellsDto.AmountTwenty);
 
-            cashMachine.AmountFifty += operationDto.AmountFifty;
-            cashMachine.TotalValue += (50m * operationDto.AmountFifty);
+            cashMachine.AmountFifty += cellsDto.AmountFifty;
+            cashMachine.TotalValue += (50m * cellsDto.AmountFifty);
 
-            cashMachine.AmountOneHundred += operationDto.AmountOneHundred;
-            cashMachine.TotalValue += (100m * operationDto.AmountOneHundred);
+            cashMachine.AmountOneHundred += cellsDto.AmountOneHundred;
+            cashMachine.TotalValue += (100m * cellsDto.AmountOneHundred);
 
-            cashMachine.AmountTwoHundred += operationDto.AmountTwoHundred;
-            cashMachine.TotalValue += (200m * operationDto.AmountTwoHundred);
+            cashMachine.AmountTwoHundred += cellsDto.AmountTwoHundred;
+            cashMachine.TotalValue += (200m * cellsDto.AmountTwoHundred);
 
             return;
         }
 
-        public void RetrieveCash(CashMachine cashMachine, OperationCellsDto operationDto)
+        public void RetrieveCash(CashMachine cashMachine, CellsDto cellsDto)
         {
-            cashMachine.AmountOne -= operationDto.AmountOne;
-            cashMachine.TotalValue -= (1m * operationDto.AmountOne);
+            cashMachine.AmountOne -= cellsDto.AmountOne;
+            cashMachine.TotalValue -= (1m * cellsDto.AmountOne);
 
-            cashMachine.AmountTwo -= operationDto.AmountTwo;
-            cashMachine.TotalValue -= (2m * operationDto.AmountTwo);
+            cashMachine.AmountTwo -= cellsDto.AmountTwo;
+            cashMachine.TotalValue -= (2m * cellsDto.AmountTwo);
 
-            cashMachine.AmountFive -= operationDto.AmountFive;
-            cashMachine.TotalValue -= (5m * operationDto.AmountFive);
+            cashMachine.AmountFive -= cellsDto.AmountFive;
+            cashMachine.TotalValue -= (5m * cellsDto.AmountFive);
 
-            cashMachine.AmountTen -= operationDto.AmountTen;
-            cashMachine.TotalValue -= (10m * operationDto.AmountTen);
+            cashMachine.AmountTen -= cellsDto.AmountTen;
+            cashMachine.TotalValue -= (10m * cellsDto.AmountTen);
 
-            cashMachine.AmountTwenty -= operationDto.AmountTwenty;
-            cashMachine.TotalValue -= (20m * operationDto.AmountTwenty);
+            cashMachine.AmountTwenty -= cellsDto.AmountTwenty;
+            cashMachine.TotalValue -= (20m * cellsDto.AmountTwenty);
 
-            cashMachine.AmountFifty -= operationDto.AmountFifty;
-            cashMachine.TotalValue -= (50m * operationDto.AmountFifty);
+            cashMachine.AmountFifty -= cellsDto.AmountFifty;
+            cashMachine.TotalValue -= (50m * cellsDto.AmountFifty);
 
-            cashMachine.AmountOneHundred -= operationDto.AmountOneHundred;
-            cashMachine.TotalValue -= (100m * operationDto.AmountOneHundred);
+            cashMachine.AmountOneHundred -= cellsDto.AmountOneHundred;
+            cashMachine.TotalValue -= (100m * cellsDto.AmountOneHundred);
 
-            cashMachine.AmountTwoHundred -= operationDto.AmountTwoHundred;
-            cashMachine.TotalValue -= (200m * operationDto.AmountTwoHundred);
+            cashMachine.AmountTwoHundred -= cellsDto.AmountTwoHundred;
+            cashMachine.TotalValue -= (200m * cellsDto.AmountTwoHundred);
 
             return;
         }
 
-        public decimal SumValue(OperationCellsDto operationDto)
+        public decimal SumValue(CellsDto cellsDto)
         {
             decimal total = 0;
 
-            total += (1m * operationDto.AmountOne);
-            total += (2m * operationDto.AmountTwo);
-            total += (5m * operationDto.AmountFive);
-            total += (10m * operationDto.AmountTen);
-            total += (20m * operationDto.AmountTwenty);
-            total += (50m * operationDto.AmountFifty);
-            total += (100m * operationDto.AmountOneHundred);
-            total += (200m * operationDto.AmountTwoHundred);
+            total += (1m * cellsDto.AmountOne);
+            total += (2m * cellsDto.AmountTwo);
+            total += (5m * cellsDto.AmountFive);
+            total += (10m * cellsDto.AmountTen);
+            total += (20m * cellsDto.AmountTwenty);
+            total += (50m * cellsDto.AmountFifty);
+            total += (100m * cellsDto.AmountOneHundred);
+            total += (200m * cellsDto.AmountTwoHundred);
 
             return total;
         }
 
         public OperationWithdrawDto ConvertToCells(CashMachine cashMachine, decimal totalValue)
         {
-            var operationDto = new OperationCellsDto()
+            var cellsDto = new CellsDto()
             {
                 AmountOne = 0,
                 AmountTwo = 0,
@@ -100,7 +96,7 @@ namespace DesafioTDD.application.Helpers
             var value = totalValue;
             while (value >= 200m && cashMachine.AmountTwoHundred > 0)
             {
-                operationDto.AmountTwoHundred ++;
+                cellsDto.AmountTwoHundred ++;
                 cashMachine.AmountTwoHundred --;
                 cashMachine.TotalValue -= 200m;
                 value -= 200m;
@@ -108,7 +104,7 @@ namespace DesafioTDD.application.Helpers
 
             while (value >= 100m && cashMachine.AmountOneHundred > 0)
             {
-                operationDto.AmountOneHundred ++;
+                cellsDto.AmountOneHundred ++;
                 cashMachine.AmountOneHundred --;
                 cashMachine.TotalValue -= 100m;
                 value -= 100m;
@@ -116,7 +112,7 @@ namespace DesafioTDD.application.Helpers
 
             while (value >= 50m && cashMachine.AmountFifty > 0)
             {
-                operationDto.AmountFifty ++;
+                cellsDto.AmountFifty ++;
                 cashMachine.AmountFifty --;
                 cashMachine.TotalValue -= 50m;
                 value -= 50m;
@@ -124,7 +120,7 @@ namespace DesafioTDD.application.Helpers
 
             while (value >= 20m && cashMachine.AmountTwenty > 0)
             {
-                operationDto.AmountTwenty ++;
+                cellsDto.AmountTwenty ++;
                 cashMachine.AmountTwenty --;
                 cashMachine.TotalValue -= 20m;
                 value -= 20m;
@@ -132,7 +128,7 @@ namespace DesafioTDD.application.Helpers
 
             while (value >= 10m && cashMachine.AmountTen > 0)
             {
-                operationDto.AmountTen ++;
+                cellsDto.AmountTen ++;
                 cashMachine.AmountTen --;
                 cashMachine.TotalValue -= 10m;
                 value -= 10m;
@@ -140,7 +136,7 @@ namespace DesafioTDD.application.Helpers
 
             while (value >= 5m && cashMachine.AmountFive > 0)
             {
-                operationDto.AmountFive ++;
+                cellsDto.AmountFive ++;
                 cashMachine.AmountFive --;
                 cashMachine.TotalValue -= 5m;
                 value -= 5m;
@@ -148,7 +144,7 @@ namespace DesafioTDD.application.Helpers
 
             while (value >= 2m && cashMachine.AmountTwo > 0)
             {
-                operationDto.AmountTwo ++;
+                cellsDto.AmountTwo ++;
                 cashMachine.AmountTwo --;
                 cashMachine.TotalValue -= 2m;
                 value -= 2m;
@@ -156,7 +152,7 @@ namespace DesafioTDD.application.Helpers
 
             while (value >= 1m && cashMachine.AmountOne > 0)
             {
-                operationDto.AmountOne ++;
+                cellsDto.AmountOne ++;
                 cashMachine.AmountOne --;
                 cashMachine.TotalValue -= 1m;
                 value -= 1m;
@@ -164,25 +160,25 @@ namespace DesafioTDD.application.Helpers
 
             var operationWithdrawDto = new OperationWithdrawDto()
             {
-                OperationDto = operationDto,
+                CellsDto = cellsDto,
                 WithdrawValue = totalValue - value
             };
 
             return operationWithdrawDto;
         }
 
-        public bool CheckQuantity(CashMachine cashMachine, OperationCellsDto operationDto)
+        public bool CheckQuantity(CashMachine cashMachine, CellsDto cellsDto)
         {
             if
             (
-                cashMachine.AmountOne >= operationDto.AmountOne &&
-                cashMachine.AmountTwo >= operationDto.AmountTwo &&
-                cashMachine.AmountFive >= operationDto.AmountFive &&
-                cashMachine.AmountTen >= operationDto.AmountTen &&
-                cashMachine.AmountTwenty >= operationDto.AmountTwenty &&
-                cashMachine.AmountFifty >= operationDto.AmountFifty &&
-                cashMachine.AmountOneHundred >= operationDto.AmountOneHundred &&
-                cashMachine.AmountTwoHundred >= operationDto.AmountTwoHundred
+                cashMachine.AmountOne >= cellsDto.AmountOne &&
+                cashMachine.AmountTwo >= cellsDto.AmountTwo &&
+                cashMachine.AmountFive >= cellsDto.AmountFive &&
+                cashMachine.AmountTen >= cellsDto.AmountTen &&
+                cashMachine.AmountTwenty >= cellsDto.AmountTwenty &&
+                cashMachine.AmountFifty >= cellsDto.AmountFifty &&
+                cashMachine.AmountOneHundred >= cellsDto.AmountOneHundred &&
+                cashMachine.AmountTwoHundred >= cellsDto.AmountTwoHundred
             )
                 return true;
             return false;

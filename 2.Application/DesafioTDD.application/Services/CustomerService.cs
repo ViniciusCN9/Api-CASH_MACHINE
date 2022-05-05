@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Helpers;
 using DesafioTDD.application.Interfaces;
@@ -15,26 +14,49 @@ namespace DesafioTDD.application.Services
     {
         private ICustomerRepository _customerRepository;
         private IBankRepository _bankRepository;
+        private ICashMachineRepository _cashMachineRepository;
         private CardNumberHelper _cardNumberHelper;
 
-        public CustomerService(ICustomerRepository customerRepository, IBankRepository bankRepository, CardNumberHelper cardNumberHelper)
+        public CustomerService(ICustomerRepository customerRepository, IBankRepository bankRepository, ICashMachineRepository cashMachineRepository, CardNumberHelper cardNumberHelper)
         {
             _customerRepository = customerRepository;
             _bankRepository = bankRepository;
+            _cashMachineRepository = cashMachineRepository;
             _cardNumberHelper = cardNumberHelper;
         }
 
-        public void CustomerRegister(CustomerRegisterDto customerDto)
+        public object CustomerRegister(CustomerRegisterDto customerDto)
         {
             var bank = _bankRepository.GetBank(customerDto.BankId);
             if (bank is null)
                 throw new ArgumentException("Banco não encontrado");
 
+            var cardNumber = _cardNumberHelper.GenerateCardNumber(bank.CardNumberPrefix);
             var customer = customerDto.ToDomain();
             customer.Bank = bank;
-            customer.CardNumber = _cardNumberHelper.GenerateCardNumber(bank.CardNumberPrefix);
+            customer.CardNumber = cardNumber;
 
             _customerRepository.CreateCustomer(customer);
+
+            var cashMachines = _cashMachineRepository.GetCashMachines().Where(e => e.Bank.Id == bank.Id);
+            var cashMachinesIds = new List<int>();
+            foreach (var cashMachine in cashMachines)
+            {
+                cashMachinesIds.Add(cashMachine.Id);
+            }
+
+            if (cashMachines is null)
+                return new
+                    {
+                        cardNumber = cardNumber,
+                        cashMachines = "Nenhum caixa eletrônico encontrado"
+                    };
+
+            return new
+            {
+                cardNumber = cardNumber,
+                cashMachines = cashMachinesIds
+            };
         }
 
         public void DeleteCustomer(int id)

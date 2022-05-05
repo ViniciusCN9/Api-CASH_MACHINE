@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.Interfaces;
 using DesafioTDD.application.Services;
 using DesafioTDD.domain.Entities.Base;

@@ -1,14 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioTDD.api.Controllers.Manager
 {
     [ApiController]
+    [Authorize(Roles = "MANAGER")]
     [Route("v1/Manager/[controller]")]
     public class CashMachineController : ControllerBase
     {
@@ -21,16 +21,38 @@ namespace DesafioTDD.api.Controllers.Manager
         [HttpGet]
         public IActionResult GetCashMachines()
         {
-            var cashMachines = _cashMachineService.GetCashMachines();
-            return Ok(cashMachines);
+            try
+            {
+                var cashMachines = _cashMachineService.GetCashMachines();
+                return Ok(cashMachines);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpGet]
         [Route("{id:int}")]
         public IActionResult GetCashMachine([FromRoute] int id)
         {
-            var cashMachine = _cashMachineService.GetCashMachine(id);
-            return Ok(cashMachine);
+            try
+            {
+                var cashMachine = _cashMachineService.GetCashMachine(id);
+                return Ok(cashMachine);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPost]
@@ -39,38 +61,82 @@ namespace DesafioTDD.api.Controllers.Manager
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _cashMachineService.CreateCashMachine(cashMachineDto);
-            return Ok();
+            try
+            {
+                _cashMachineService.CreateCashMachine(cashMachineDto);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPatch]
         [Route("Insert/{id:int}")]
-        public IActionResult InsertCash([FromBody] OperationCellsDto operationDto, [FromRoute] int id)
+        public IActionResult InsertCash([FromBody] CellsDto cellsDto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _cashMachineService.InsertCash(operationDto, id);
-            return Ok();
+            try
+            {
+                _cashMachineService.InsertCash(cellsDto, id);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPatch]
         [Route("Retrieve/{id:int}")]
-        public IActionResult RetrieveCash([FromBody] OperationCellsDto operationDto, [FromRoute] int id)
+        public IActionResult RetrieveCash([FromBody] CellsDto cellsDto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            _cashMachineService.RetrieveCash(operationDto, id);
-            return Ok();
+            try
+            {
+                _cashMachineService.RetrieveCash(cellsDto, id);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpDelete]
         [Route("{id:int}")]
         public IActionResult DeleteCashMachine([FromRoute] int id)
         {
-            _cashMachineService.DeleteCashMachine(id);
-            return Ok();
+            try
+            {
+                _cashMachineService.DeleteCashMachine(id);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
     }
 }

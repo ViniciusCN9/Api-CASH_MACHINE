@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Helpers;
 using DesafioTDD.domain.Entities;
@@ -30,7 +26,7 @@ namespace DesafioTDD.unit.Helpers
                 AmountOne = 0, AmountTwo = 0, AmountFive = 0, AmountTen = 0, AmountTwenty = 0, AmountFifty = 0, AmountOneHundred = 0, AmountTwoHundred = 0,
                 TotalValue = 0m
             };
-            var operationDto = new OperationCellsDto()
+            var cellsDto = new CellsDto()
             {
                 AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
             };
@@ -40,7 +36,7 @@ namespace DesafioTDD.unit.Helpers
                 TotalValue = 700m
             };
 
-            _operationHelper.InsertCash(cashMachine, operationDto);
+            _operationHelper.InsertCash(cashMachine, cellsDto);
 
             cashMachine.Should().BeEquivalentTo(expected);
         }
@@ -56,7 +52,7 @@ namespace DesafioTDD.unit.Helpers
                 AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
                 TotalValue = 700m
             };
-            var operationDto = new OperationCellsDto()
+            var cellsDto = new CellsDto()
             {
                 AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
             };
@@ -66,7 +62,7 @@ namespace DesafioTDD.unit.Helpers
                 TotalValue = 0m
             };
 
-            _operationHelper.RetrieveCash(cashMachine, operationDto);
+            _operationHelper.RetrieveCash(cashMachine, cellsDto);
 
             cashMachine.Should().BeEquivalentTo(expected);
         }
@@ -75,15 +71,15 @@ namespace DesafioTDD.unit.Helpers
         [Trait("Method", "SumValue")]
         [Trait("Class", "OperationHelper")]
         [Trait("Namespace", "Helpers")]
-        public void Deve_Retornar_Soma_das_Celulas_Quando_Recebe_OperationCellsDto()
+        public void Deve_Retornar_Soma_das_Celulas_Quando_Recebe_CellsDto()
         {
-            var operationDto = new OperationCellsDto()
+            var cellsDto = new CellsDto()
             {
                 AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
             };
             var expected = 700m;
 
-            var result = _operationHelper.SumValue(operationDto);
+            var result = _operationHelper.SumValue(cellsDto);
 
             Assert.Equal(expected, result);
         }
@@ -102,7 +98,7 @@ namespace DesafioTDD.unit.Helpers
             };
             var expected = new OperationWithdrawDto()
             {
-                OperationDto = new OperationCellsDto()
+                CellsDto = new CellsDto()
                 {
                     AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
                 },
@@ -125,12 +121,12 @@ namespace DesafioTDD.unit.Helpers
                 AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
                 TotalValue = 700m
             };
-            var operationDto = new OperationCellsDto()
+            var cellsDto = new CellsDto()
             {
                 AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
             };
 
-            var result = _operationHelper.CheckQuantity(cashMachine, operationDto);
+            var result = _operationHelper.CheckQuantity(cashMachine, cellsDto);
 
             Assert.True(result);
         }
@@ -146,12 +142,12 @@ namespace DesafioTDD.unit.Helpers
                 AmountOne = 99, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
                 TotalValue = 699m
             };
-            var operationDto = new OperationCellsDto()
+            var cellsDto = new CellsDto()
             {
                 AmountOne = 100, AmountTwo = 50, AmountFive = 20, AmountTen = 10, AmountTwenty = 5, AmountFifty = 2, AmountOneHundred = 1, AmountTwoHundred = 0,
             };
 
-            var result = _operationHelper.CheckQuantity(cashMachine, operationDto);
+            var result = _operationHelper.CheckQuantity(cashMachine, cellsDto);
 
             Assert.False(result);
         }

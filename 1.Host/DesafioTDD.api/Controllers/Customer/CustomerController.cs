@@ -1,10 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DesafioTDD.application.DataTransferObjects;
 using DesafioTDD.application.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesafioTDD.api.Controllers.Customer
@@ -27,39 +26,83 @@ namespace DesafioTDD.api.Controllers.Customer
         [Route("Balance")]
         public IActionResult GetBalance()
         {
-            var userId = User.Claims.First().Value;
-            var customer = _customerService.GetCustomer(int.Parse(userId));
-            return Ok(customer.Balance.ToString("c"));
+            try
+            {
+                var userId = User.Claims.First().Value;
+                var customer = _customerService.GetCustomer(int.Parse(userId));
+                return Ok(customer.Balance.ToString("c"));
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpGet]
         [Route("Statement")]
         public IActionResult GetStatement()
         {
-            var userId = User.Claims.First().Value;
-            var operations = _operationService.GetOperations(int.Parse(userId)); 
-            return Ok(operations);
+            try
+            {
+                var userId = User.Claims.First().Value;
+                var statement = _operationService.GetOperations(int.Parse(userId)); 
+                return Ok(statement);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPost]
-        [Route("Withdraw/{id:int}")]
-        public IActionResult PostWithdraw([FromBody] decimal totalValue, [FromRoute] int cashMachineId)
+        [Route("Withdraw/{cashMachineId:int}/{totalValue:decimal}")]
+        public IActionResult PostWithdraw([FromRoute] int cashMachineId, decimal totalValue)
         {
-            var userId = User.Claims.First().Value;
-            var operation = _operationService.OperationWithdraw(totalValue, cashMachineId, int.Parse(userId));
-            return Ok(operation);
+            try
+            {
+                var userId = User.Claims.First().Value;
+                var operation = _operationService.OperationWithdraw(totalValue, cashMachineId, int.Parse(userId));
+                return Ok(operation);
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPost]
-        [Route("Deposit/{id:int}")]
-        public IActionResult PostDeposit([FromBody] OperationCellsDto operationDto, [FromRoute] int cashMachineId)
+        [Route("Deposit/{cashMachineId:int}")]
+        public IActionResult PostDeposit([FromBody] CellsDto operationDto, [FromRoute] int cashMachineId)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var userId = User.Claims.First().Value;
-            _operationService.OperationDeposit(operationDto, cashMachineId, int.Parse(userId));
-            return Ok();
+            try
+            {
+                var userId = User.Claims.First().Value;
+                _operationService.OperationDeposit(operationDto, cashMachineId, int.Parse(userId));
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
 
         [HttpPost]
@@ -69,9 +112,20 @@ namespace DesafioTDD.api.Controllers.Customer
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var userId = User.Claims.First().Value;
-            _customerService.UpdateCustomer(customerDto, int.Parse(userId));
-            return Ok();
+            try
+            {
+                var userId = User.Claims.First().Value;
+                _customerService.UpdateCustomer(customerDto, int.Parse(userId));
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
         }
     }
 }
