@@ -80,15 +80,6 @@ namespace DesafioTDD.application.Services
             return customer;
         }
 
-        public List<Customer> GetCustomers()
-        {
-            var customers = _customerRepository.GetCustomers();
-            if (!customers.Any())
-                throw new ArgumentException("Nenhum cliente cadastrado");
-
-            return customers;
-        }
-
         public Customer LoginCustomer(string cardNumber, string password)
         {
             var customer = _customerRepository.LoginCustomer(cardNumber, password);

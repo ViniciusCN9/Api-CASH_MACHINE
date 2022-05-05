@@ -14,7 +14,7 @@ namespace DesafioTDD.infra.Migrations
             migrationBuilder.InsertData(
                 table: "Banks",
                 columns: new[] { "Id", "Name", "CardNumberPrefix" },
-                values: new object[] { 1, "TESTE", "0000" });
+                values: new object[] { 1, "bank", "0000" });
 
             migrationBuilder.InsertData(
                 table: "Banks",
@@ -34,7 +34,7 @@ namespace DesafioTDD.infra.Migrations
             migrationBuilder.InsertData(
                 table: "CashMachines",
                 columns: new[] { "Id", "BankId", "AmountOne", "AmountTwo", "AmountFive", "AmountTen", "AmountTwenty", "AmountFifty", "AmountOneHundred", "AmountTwoHundred", "TotalValue" },
-                values: new object[] { 1, 1, 0, 0, 0, 0, 0, 2, 0, 0, 100m });
+                values: new object[] { 1, 1, 0, 0, 0, 1, 2, 1, 0, 0, 100m });
 
             migrationBuilder.InsertData(
                 table: "CashMachines",

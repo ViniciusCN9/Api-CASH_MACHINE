@@ -6,7 +6,6 @@ namespace DesafioTDD.application.Interfaces
 {
     public interface ICustomerService
     {
-        List<Customer> GetCustomers();
         Customer GetCustomer(int id);
         Customer LoginCustomer(string cardNumber, string password);
         object CustomerRegister(CustomerRegisterDto customerDto);

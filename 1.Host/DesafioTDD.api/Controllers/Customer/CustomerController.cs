@@ -108,7 +108,7 @@ namespace DesafioTDD.api.Controllers.Customer
         }
 
         [HttpPost]
-        [Route("Options")]
+        [Route("Update")]
         public IActionResult UpdateCustomer([FromBody] CustomerUpdateDto customerDto)
         {
             if (!ModelState.IsValid)
@@ -118,6 +118,26 @@ namespace DesafioTDD.api.Controllers.Customer
             {
                 var userId = User.Claims.First().Value;
                 _customerService.UpdateCustomer(customerDto, int.Parse(userId));
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, e.Message); 
+            }
+        }
+
+        [HttpDelete]
+        [Route("Delete")]
+        public IActionResult DeleteCustomer()
+        {
+            try
+            {
+                var userId = User.Claims.First().Value;
+                _customerService.DeleteCustomer(int.Parse(userId));
                 return Ok();
             }
             catch (ArgumentException e)
