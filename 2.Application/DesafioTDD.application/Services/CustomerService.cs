@@ -66,7 +66,7 @@ namespace DesafioTDD.application.Services
                 throw new ArgumentException("Cliente não encontrado");
 
             if (customer.Balance > 0m)
-                throw new Exception("Não é possível deletar um cliente com saldo");
+                throw new Exception("Não é possível encerrar uma conta com saldo");
 
             _customerRepository.DeleteCustomer(customer);
         }

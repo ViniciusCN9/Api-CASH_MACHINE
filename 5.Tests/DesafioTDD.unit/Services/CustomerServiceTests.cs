@@ -27,7 +27,7 @@ namespace DesafioTDD.unit.Services
 
             var exception = Assert.Throws<Exception>(() => _customerService.DeleteCustomer(It.IsAny<int>()));
 
-            Assert.Equal("Não é possível deletar um cliente com saldo", exception.Message);
+            Assert.Equal("Não é possível encerrar uma conta com saldo", exception.Message);
         }
 
         [Fact(DisplayName = "Deve chamar DeleteCustomer")]
